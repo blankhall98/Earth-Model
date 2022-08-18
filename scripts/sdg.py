@@ -1,4 +1,7 @@
 class SDG:
 
     def __init__(self):
-        print('Sustainable Development Goals Class Initialized')
+        pass
+
+    def run(self):
+        print('Welcome to the Sustainable Development Goals Module.')

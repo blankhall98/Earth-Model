@@ -1,4 +1,7 @@
 class PB:
 
     def __init__(self):
-        print('Planetary Boundaries Class Initialized')
+        pass
+
+    def run(self):
+        print('Welcome to the Planetary Boundaries Module.')
