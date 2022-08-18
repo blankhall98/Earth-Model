@@ -4,4 +4,8 @@ class PB:
         pass
 
     def run(self):
-        print('Welcome to the Planetary Boundaries Module.')
+        self.greeting()
+
+    # greetings for pb module
+    def greeting(self):
+        print('\n'+'-----'+'Welcome to the Planetary Boundaries Module.'+'-----'+'\n')

@@ -4,4 +4,8 @@ class SDG:
         pass
 
     def run(self):
-        print('Welcome to the Sustainable Development Goals Module.')
+        self.greeting()
+    
+    #greetings to sdg module
+    def greeting(self):
+        print('\n'+'-----'+'Welcome to the Sustainable Development Goals Module.'+'-----'+'\n')

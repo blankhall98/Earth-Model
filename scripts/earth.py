@@ -14,3 +14,8 @@ class Earth:
     def earth_module_actions(self):
         display = {}
         return display
+
+class Region:
+
+    def __init__(self):
+        pass

@@ -1,10 +1,10 @@
-#import libraries
+#import LIBRARIES
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-#import scripts
+#import MODULES
 from scripts.sdg import SDG
 from scripts.pb import PB
 from scripts.earth import Earth

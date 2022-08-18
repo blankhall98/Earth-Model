@@ -4,4 +4,8 @@ class E3:
         pass
 
     def run(self):
-        print('Welcome to the Earth3 Simulation Module.')
+        self.greeting()
+
+    #greetings to the e3 module
+    def greeting(self):
+        print('\n'+'-----'+'Welcome to the Earth3 Simulation Module.'+'-----'+'\n')
