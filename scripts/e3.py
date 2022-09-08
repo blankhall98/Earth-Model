@@ -9,3 +9,5 @@ class E3:
     #greetings to the e3 module
     def greeting(self):
         print('\n'+'-----'+'Welcome to the Earth3 Simulation Module.'+'-----'+'\n')
+
+    

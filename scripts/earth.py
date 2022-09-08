@@ -1,7 +1,8 @@
 class Earth:
 
     def __init__(self):
-        pass
+        self.world_regions = ['United States','Other Rich Countries',
+        'China','Emerging Economies','Indian Subcontinent','Africa South of Sahara','Rest of World']
 
     def run(self):
         #greet client
@@ -17,5 +18,5 @@ class Earth:
 
 class Region:
 
-    def __init__(self):
-        pass
+    def __init__(self,region_name):
+        self.region_name = region_name
