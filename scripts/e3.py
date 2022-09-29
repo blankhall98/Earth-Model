@@ -10,8 +10,12 @@ class E3:
         self.sdg = sdg(self.inputs.sustainable_goals)
         self.pb = pb(self.inputs.planetary_boundaries)
 
+        #call sgd ~ gdp correlation process
+        self.correlate()
+
     #   GRAPHICS SECTION -----
 
+    # DEMOGRAPHIC AND ECONOMICAL INFORMATION
     #graphs the total population by region. dotted line means prediction.
     def graph_population(self):
 
@@ -138,6 +142,104 @@ class E3:
         plt.legend()
         plt.show()
 
+    # graph - by region - the progress on specific sustainable development goal
+    def graph_sdg(self,goal):
+
+        goal_data = self.sdg.sustainable_goals[goal]
+
+        plt.figure(figsize=(12,8))
+
+        plt.title(goal_data['goal']+' : '+goal_data['indicator'])
+        plt.ylabel(goal_data['indicator'])
+        plt.xlabel('Year')
+
+        green_yellow = goal_data['green-yellow']
+        yellow_red = goal_data['yellow-red']
+
+        plt.fill_between(self.inputs.historical_years,green_yellow,yellow_red, color = 'yellow', alpha = 0.09,label='Warning Zone')
+        minimum_values = []
+        maximum_values = []
+
+        
+
+        for region in self.world.world_regions.values():
+
+            region_name = region['region']
+            regional_sdg = region['instance'].sdg.loc[int(goal)]
+            color = region['color']
+            #last_year_recorded = [self.inputs.historical_years[-1]]
+
+            plt.plot(self.inputs.historical_years,regional_sdg[self.inputs.historical_years],color,label=f'{region_name}')
+            #plt.plot(last_year_recorded+self.inputs.prediction_years,regional_gdppc[last_year_recorded+self.inputs.prediction_years].values[0],color,linestyle='dashed')
+
+            minimum_values.append(min(regional_sdg[self.inputs.historical_years]))
+            maximum_values.append(max(regional_sdg[self.inputs.historical_years]))
+
+        if goal_data['direction of progress'] == '<':
+            best = min(minimum_values) 
+            worst = max(maximum_values) 
+        else:
+            best = max(maximum_values) 
+            worst = min(minimum_values) 
+
+        plt.fill_between(self.inputs.historical_years,worst,yellow_red, color = 'red', alpha = 0.09,label='Danger Zone')
+        plt.fill_between(self.inputs.historical_years,green_yellow,best, color = 'green', alpha = 0.09,label='Safe Zone')
+
+        plt.legend()
+        plt.show()
+
+    # graph regional sdg progress given specific region
+    def graph_regional_sdg(self,region_code,goal):
+
+        goal_data = self.sdg.sustainable_goals[goal]
+
+        plt.figure(figsize=(12,8))
+
+        plt.title(goal_data['goal']+' : '+goal_data['indicator'])
+        plt.ylabel(goal_data['indicator'])
+        plt.xlabel('Year')
+
+        green_yellow = goal_data['green-yellow']
+        yellow_red = goal_data['yellow-red']
+
+        plt.fill_between(self.inputs.historical_years,green_yellow,yellow_red, color = 'yellow', alpha = 0.09,label='Warning Zone')
+        minimum_values = []
+        maximum_values = []
+
+        region = self.world.world_regions[region_code]['instance']
+        color = self.world.world_regions[region_code]['color']
+        plt.plot(self.inputs.historical_years,region.sdg.loc[int(goal)][self.inputs.historical_years],color,label=f'{region.name}')
+
+        for region in self.world.world_regions.values():
+            regional_sdg = region['instance'].sdg.loc[int(goal)]
+
+            minimum_values.append(min(regional_sdg[self.inputs.historical_years]))
+            maximum_values.append(max(regional_sdg[self.inputs.historical_years]))
+
+        if goal_data['direction of progress'] == '<':
+            best = min(minimum_values)
+            worst = max(maximum_values)
+        else:
+            best = max(maximum_values)
+            worst = min(minimum_values)
+
+        plt.fill_between(self.inputs.historical_years,worst,yellow_red, color = 'red', alpha = 0.09,label='Danger Zone')
+        plt.fill_between(self.inputs.historical_years,green_yellow,best, color = 'green', alpha = 0.09,label='Safe Zone')
+
+        plt.legend()
+        plt.show()
+
+    # graph - by - region the relation between a sdg indicator and gdp
+    def graph_sdgXgdp(self):
+        pass
+
+    # graph the correlation between a sdg indicator and gdp fpr specific region given region code
+    def graph_regional_sdgXgdp(self):
+        pass
+
+
     #   CORRELATE
+    def correlate(self):
+        print('.. beep boop correlating...')
     #   ADJUST
     #   PERFORMANCE

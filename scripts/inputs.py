@@ -88,7 +88,7 @@ class Inputs:
         
         self.sustainable_goals = {
     
-                'goal1': {
+                '1': {
                     'goal': 'No poverty',
                     'indicator': 'Fraction of population living below 1.90$ per day (%)',
                     'units': '%',
@@ -97,7 +97,7 @@ class Inputs:
                     'direction of progress': '<'
                 },
                 
-                'goal2': {
+                '2': {
                     'goal': 'Zero hunger',
                     'indicator': 'Fraction of population undernourished (%)',
                     'units': '%',
@@ -106,7 +106,7 @@ class Inputs:
                     'direction of progress': '<'
                 },
                 
-                'goal3': {
+                '3': {
                     'goal': 'Good health',
                     'indicator': 'Life expectancy at birth (years)',
                     'units': 'years',
@@ -115,7 +115,7 @@ class Inputs:
                     'direction of progress': '>'
                 },
                 
-                'goal4': {
+                '4': {
                     'goal': 'Quality education',
                     'indicator': 'School life expectancy (years)',
                     'units': 'years',
@@ -124,7 +124,7 @@ class Inputs:
                     'direction of progress': '>'
                 },
                 
-                'goal5': {
+                '5': {
                     'goal': 'Gender equality',
                     'indicator': 'Gender parity in schooling',
                     'units': '1',
@@ -133,7 +133,7 @@ class Inputs:
                     'direction of progress': '>'
                 },
                 
-                'goal6': {
+                '6': {
                     'goal': 'Safe water',
                     'indicator': 'Fraction of population with access to safe water (%)',
                     'units': '%',
@@ -142,7 +142,7 @@ class Inputs:
                     'direction of progress': '>'
                 },
                 
-                'goal7': {
+                '7': {
                     'goal': 'Enough energy',
                     'indicator': 'Fraction of population with access to electricity (%)',
                     'units': '%',
@@ -151,7 +151,7 @@ class Inputs:
                     'direction of progress': '>'
                 },
                 
-                'goal8': {
+                '8': {
                     'goal': 'Decent jobs',
                     'indicator': 'Job market growth (%/y)',
                     'units': '%/y',
@@ -160,7 +160,7 @@ class Inputs:
                     'direction of progress': '>'
                 },
                 
-                'goal9': {
+                '9': {
                     'goal': 'Industrial output',
                     'indicator': 'GDP per person in manufacturing & construction (2011 PPP US$/p-y)',
                     'units': '2011 PPP US$/p-y',
@@ -169,7 +169,7 @@ class Inputs:
                     'direction of progress': '>'
                 },
                 
-                'goal10': {
+                '10': {
                     'goal': 'Reduced inequality',
                     'indicator': 'Share of national income to richest 10% (%)',
                     'units': '%',
@@ -178,7 +178,7 @@ class Inputs:
                     'direction of progress': '<'
                 },
                 
-                'goal11': {
+                '11': {
                     'goal': 'Clean cities',
                     'indicator': 'Urban aerosol concentration (mg 2.5M/m3)',
                     'units': 'mg 2.5M/m3',
@@ -187,7 +187,7 @@ class Inputs:
                     'direction of progress': '<'
                 },
                 
-                'goal12': {
+                '12': {
                     'goal': 'Responsible consumption',
                     'indicator': 'Ecological footprint per person (gha/p)',
                     'units': 'gha/p',
@@ -196,7 +196,7 @@ class Inputs:
                     'direction of progress': '<'
                 },
                 
-                'goal13': {
+                '13': {
                     'goal': 'Climate action',
                     'indicator': 'Temperature rise (deg C above 1850)',
                     'units': 'deg C above 1850',
@@ -205,7 +205,7 @@ class Inputs:
                     'direction of progress': '<'
                 },
                 
-                'goal14': {
+                '14': {
                     'goal': 'Life below water',
                     'indicator': 'Acidity of ocean surface water (pH)',
                     'units': 'pH',
@@ -214,7 +214,7 @@ class Inputs:
                     'direction of progress': '>'
                 },
                 
-                'goal15': {
+                '15': {
                     'goal': 'Life on land',
                     'indicator': 'Old-growth-forest area (Mkm2)',
                     'units': 'Mkm2',
@@ -223,7 +223,7 @@ class Inputs:
                     'direction of progress': '>'
                 },
                 
-                'goal16': {
+                '16': {
                     'goal': 'Good governance',
                     'indicator': 'Government spending per person (2011 PPP US$/p-y)',
                     'units': '2011 PPP US$/p-y',
@@ -232,7 +232,7 @@ class Inputs:
                     'direction of progress': '>'
                 },
                 
-                'goal17': {
+                '17': {
                     'goal': 'More partnership',
                     'indicator': 'Exports as a fraction of GDP (%)',
                     'units': '%',

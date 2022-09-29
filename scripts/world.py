@@ -17,9 +17,6 @@ class World:
         #create regions
         self.create_regions()
 
-        #--debugging--
-        print('World Class Correctly Initialized.')
-
     #   REGION CLASS ----- INNER CLASS
     class Region:
 
