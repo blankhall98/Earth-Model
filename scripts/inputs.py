@@ -244,43 +244,43 @@ class Inputs:
 
         self.world_regions = {
     
-            'region1': {
+            'USA': {
                 'region': 'United States',
                 'abreviation': 'USA',
                 'members': [],
             },
             
-            'region2': {
+            'ORC': {
                 'region': 'Other Rich Countries',
                 'abreviation': 'ORC',
                 'members': []
             },
             
-            'region3': {
+            'EE': {
                 'region': 'Emerging Economies',
                 'abreviation': 'EE',
                 'members': []
             },
             
-            'region4': {
+            'China': {
                 'region': 'China',
                 'abreviation': 'China',
                 'members': []
             },
             
-            'region5': {
+            'India': {
                 'region': 'Indian Subcontinent',
                 'abreviation': 'India',
                 'members': []
             },
             
-            'region6': {
+            'ASoS': {
                 'region': 'Africa South of Sahara',
                 'abreviation': 'ASoS',
                 'members': []
             },
             
-            'region7': {
+            'RoW': {
                 'region': 'Rest of World',
                 'abreviation': 'RoW',
                 'members': []
