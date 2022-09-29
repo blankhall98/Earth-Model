@@ -53,3 +53,91 @@ class E3:
 
         plt.legend()
         plt.show()
+
+    #graph total gdv by region
+    def graph_gdp(self):
+
+        plt.figure(figsize=(12,8))
+
+        plt.suptitle('Total Gross Domestic Product by Region')
+        plt.text(0,0,'The dotted lines represent WorldBank predictions.')
+        plt.xlabel('Year')
+        plt.ylabel('Gross Domestic Product in millions')
+
+        for region in self.world.world_regions.values():
+
+            region_name = region['region']
+            regional_gdp = region['instance'].gdp
+            color = region['color']
+            last_year_recorded = [self.inputs.historical_years[-1]]
+
+            plt.plot(self.inputs.historical_years,regional_gdp[self.inputs.historical_years].values[0],color,label=f'{region_name}')
+            plt.plot(last_year_recorded+self.inputs.prediction_years,regional_gdp[last_year_recorded+self.inputs.prediction_years].values[0],color,linestyle='dashed')
+    
+        plt.legend()
+        plt.show()
+
+    # graph regional gdp given athe region code
+    def graph_regional_gdp(self,region_code):
+
+        region = self.world.world_regions[region_code]['instance']
+        color = self.world.world_regions[region_code]['color']
+        last_year_recorded = [self.inputs.historical_years[-1]]
+
+        plt.figure(figsize=(12,8))
+
+        plt.suptitle(f'Total Gross Domestic Product {region.name}')
+        plt.xlabel('Year')
+        plt.ylabel('GDP in millions')
+
+        plt.plot(self.inputs.historical_years,region.gdp[self.inputs.historical_years].values[0],color,label='Historical Values')
+        plt.plot(last_year_recorded+self.inputs.prediction_years,region.gdp[last_year_recorded+self.inputs.prediction_years].values[0],color,linestyle='dashed',label='World Bank Predictions')
+
+        plt.legend()
+        plt.show()
+
+    #graph the gross domestic product per capita per region 
+    def graph_gdppc(self):
+
+        plt.figure(figsize=(12,8))
+
+        plt.suptitle('Total Gross Domestic Product per Capita by Region')
+        plt.text(0,0,'The dotted lines represent WorldBank predictions.')
+        plt.xlabel('Year')
+        plt.ylabel('Gross Domestic Product per Capita in millions')
+
+        for region in self.world.world_regions.values():
+
+            region_name = region['region']
+            regional_gdppc = region['instance'].gdppc
+            color = region['color']
+            last_year_recorded = [self.inputs.historical_years[-1]]
+
+            plt.plot(self.inputs.historical_years,regional_gdppc[self.inputs.historical_years].values[0],color,label=f'{region_name}')
+            plt.plot(last_year_recorded+self.inputs.prediction_years,regional_gdppc[last_year_recorded+self.inputs.prediction_years].values[0],color,linestyle='dashed')
+    
+        plt.legend()
+        plt.show()
+
+    # graph the gdp per capita of specific region given the region code
+    def graph_regional_gdppc(self,region_code):
+
+        region = self.world.world_regions[region_code]['instance']
+        color = self.world.world_regions[region_code]['color']
+        last_year_recorded = [self.inputs.historical_years[-1]]
+
+        plt.figure(figsize=(12,8))
+
+        plt.suptitle(f'Total Gross Domestic Product per Capita {region.name}')
+        plt.xlabel('Year')
+        plt.ylabel('GDP per capita in millions')
+
+        plt.plot(self.inputs.historical_years,region.gdppc[self.inputs.historical_years].values[0],color,label='Historical Values')
+        plt.plot(last_year_recorded+self.inputs.prediction_years,region.gdppc[last_year_recorded+self.inputs.prediction_years].values[0],color,linestyle='dashed',label='World Bank Predictions')
+
+        plt.legend()
+        plt.show()
+
+    #   CORRELATE
+    #   ADJUST
+    #   PERFORMANCE

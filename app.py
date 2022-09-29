@@ -1,10 +1,3 @@
-#import LIBRARIES
-#import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-#import seaborn as sns
-#from scipy.optimize import curve_fit
-
 #import MODULES
 from scripts.inputs import Inputs
 from scripts.world import World
@@ -21,9 +14,19 @@ def main():
     e3 = E3(World,SDG,PB,Inputs)
 
     #   E3 ACTIONS -----
-    e3.graph_population()
 
-    e3.graph_regional_population('India')
+    # DEMOGRAPHIC AND ECONOMICAL INFORMATION
+    # graph population
+    e3.graph_population()
+    e3.graph_regional_population('ASoS')
+
+    # graph gdp
+    e3.graph_gdp()
+    e3.graph_regional_gdp('ASoS')
+
+    #graph gdp per capita
+    e3.graph_gdppc()
+    e3.graph_regional_gdppc('ASoS')
 
 
 #run app

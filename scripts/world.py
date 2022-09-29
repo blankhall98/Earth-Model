@@ -26,6 +26,7 @@ class World:
         def __init__(self,regional_statistics):
             self.regional_statistics = regional_statistics
             self.load_statistics()
+            self.gdppc = self.calculate_gdp_per_capita()
 
         def load_statistics(self):
             self.population = self.regional_statistics['population']
@@ -35,6 +36,10 @@ class World:
 
         def __repr__(self):
             return self.regional_statistics['region']
+
+        def calculate_gdp_per_capita(self):
+            gdppc = self.gdp/self.population
+            return gdppc
 
     #   READ RAW DATA SECTION   -----
 
