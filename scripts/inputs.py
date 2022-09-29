@@ -248,47 +248,55 @@ class Inputs:
                 'region': 'United States',
                 'abreviation': 'USA',
                 'members': [],
+                'color': 'blue'
             },
             
             'ORC': {
                 'region': 'Other Rich Countries',
                 'abreviation': 'ORC',
-                'members': []
+                'members': [],
+                'color': 'green'
             },
             
             'EE': {
                 'region': 'Emerging Economies',
                 'abreviation': 'EE',
-                'members': []
+                'members': [],
+                'color': 'pink'
             },
             
             'China': {
                 'region': 'China',
                 'abreviation': 'China',
-                'members': []
+                'members': [],
+                'color': 'red'
             },
             
             'India': {
                 'region': 'Indian Subcontinent',
                 'abreviation': 'India',
-                'members': []
+                'members': [],
+                'color': 'orange'
             },
             
             'ASoS': {
                 'region': 'Africa South of Sahara',
                 'abreviation': 'ASoS',
-                'members': []
+                'members': [],
+                'color': 'brown'
             },
             
             'RoW': {
                 'region': 'Rest of World',
                 'abreviation': 'RoW',
-                'members': []
+                'members': [],
+                'color': 'purple'
             }
             
         }
     
         self.data_parameters = {
+
             'route': 'raw_data/',
             'population': 'Population.csv',
             'GDP': 'GDPpp.csv',
@@ -296,3 +304,6 @@ class Inputs:
             'historical_years': ['1980','1985','1990','1995','2000','2005','2010','2015'],
             'prediction_years': ['2020','2025','2030','2035','2040','2045','2050']
         }
+    
+        self.historical_years = self.data_parameters['historical_years']
+        self.prediction_years = self.data_parameters['prediction_years']

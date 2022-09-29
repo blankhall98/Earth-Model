@@ -25,6 +25,13 @@ class World:
 
         def __init__(self,regional_statistics):
             self.regional_statistics = regional_statistics
+            self.load_statistics()
+
+        def load_statistics(self):
+            self.population = self.regional_statistics['population']
+            self.gdp = self.regional_statistics['GDP']
+            self.sdg = self.regional_statistics['SDG']
+            self.name = self.regional_statistics['region']
 
         def __repr__(self):
             return self.regional_statistics['region']
