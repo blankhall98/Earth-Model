@@ -262,7 +262,7 @@ class Inputs:
                 'region': 'Emerging Economies',
                 'abreviation': 'EE',
                 'members': [],
-                'color': 'pink'
+                'color': 'magenta'
             },
             
             'China': {

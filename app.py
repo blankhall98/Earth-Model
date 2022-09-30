@@ -8,9 +8,7 @@ from scripts.e3 import E3
 
 #main section
 def main():
-    
-    print('EarthModel -----'+'\n')
-
+        
     e3 = E3(World,SDG,PB,Inputs)
 
     #   E3 ACTIONS -----
@@ -35,9 +33,10 @@ def main():
     '''
 
     # SUSTAINABLE DEVELOPMENT GOALS VS GROSS DOMESTIC PRODUCT
-    e3.correlate()
+    # graph correlation between sdg and gdp
     e3.graph_sdgXgdp('1')
-    e3.graph_regional_sdgXgdp('1',show_corr = True)
+    e3.graph_sdgXgdp('1',corr=True)
+    e3.graph_regional_sdgXgdp('ASoS','1',corr = True)
 
     # SUSTAINABLE DEVELOPMENT GOALS PROGRESS
     #graph sustainable development goal
@@ -50,4 +49,5 @@ def main():
 
 #run app
 if __name__ == '__main__':
+    print('\n'+'----- EarthModel -----'+'\n')
     main()

@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy as np
 
 class E3:
 
@@ -10,8 +11,8 @@ class E3:
         self.sdg = sdg(self.inputs.sustainable_goals)
         self.pb = pb(self.inputs.planetary_boundaries)
 
-        #call sgd ~ gdp correlation process
-        self.correlate()
+        #run model
+        self.run()
 
     #   GRAPHICS SECTION -----
 
@@ -146,16 +147,12 @@ class E3:
     def graph_sdg(self,goal):
 
         goal_data = self.sdg.sustainable_goals[goal]
-
         plt.figure(figsize=(12,8))
-
         plt.title(goal_data['goal']+' : '+goal_data['indicator'])
         plt.ylabel(goal_data['indicator'])
         plt.xlabel('Year')
-
         green_yellow = goal_data['green-yellow']
         yellow_red = goal_data['yellow-red']
-
         plt.fill_between(self.inputs.historical_years,green_yellow,yellow_red, color = 'yellow', alpha = 0.09,label='Warning Zone')
         minimum_values = []
         maximum_values = []
@@ -230,16 +227,109 @@ class E3:
         plt.show()
 
     # graph - by - region the relation between a sdg indicator and gdp
-    def graph_sdgXgdp(self):
-        pass
+    def graph_sdgXgdp(self,goal,corr=False):
+        goal_data = self.sdg.sustainable_goals[goal]
+        plt.figure(figsize=(10,10))
+        plt.title(goal_data['goal']+' correlation with Gross Domestic Product ')
+        plt.ylabel(goal_data['indicator'])
+        plt.xlabel('Gross Domestic Product')
+        green_yellow = goal_data['green-yellow']
+        yellow_red = goal_data['yellow-red']
+        
+        minimum_values = []
+        maximum_values = []
+        min_gdp = []
+        max_gdp = []
+
+        #plot here
+        for region in self.world.world_regions.values():
+            color = region['color']
+            name = region['region']
+            r_sdg = region['instance'].sdg.loc[int(goal)][self.inputs.historical_years]
+            r_gdp = region['instance'].gdp.loc[0][self.inputs.historical_years]
+
+            plt.plot(r_gdp,r_sdg,color,linestyle='dotted',marker='o',label=f'{name}')
+        #end plot here
+
+        for region in self.world.world_regions.values():
+            regional_sdg = region['instance'].sdg.loc[int(goal)]
+            regional_gdp = region['instance'].gdp.loc[0]
+            max_gdp.append(max(regional_gdp[self.inputs.historical_years]))
+            min_gdp.append(min(regional_gdp[self.inputs.historical_years]))
+            minimum_values.append(min(regional_sdg[self.inputs.historical_years]))
+            maximum_values.append(max(regional_sdg[self.inputs.historical_years]))
+        if goal_data['direction of progress'] == '<':
+            best = min(minimum_values) 
+            worst = max(maximum_values) 
+        else:
+            best = max(maximum_values) 
+            worst = min(minimum_values)
+        plt.fill_between(np.linspace(min(min_gdp),max(max_gdp),100),green_yellow,yellow_red, color = 'yellow', alpha = 0.09,label='Warning Zone')
+        plt.fill_between(np.linspace(min(min_gdp),max(max_gdp),100),worst,yellow_red, color = 'red', alpha = 0.09,label='Danger Zone')
+        plt.fill_between(np.linspace(min(min_gdp),max(max_gdp),100),green_yellow,best, color = 'green', alpha = 0.09,label='Safe Zone')
+        plt.legend()
+        plt.show()
 
     # graph the correlation between a sdg indicator and gdp fpr specific region given region code
-    def graph_regional_sdgXgdp(self):
-        pass
+    def graph_regional_sdgXgdp(self,region_code,goal,corr=False):
+        goal_data = self.sdg.sustainable_goals[goal]
+        plt.figure(figsize=(10,10))
+        
+        plt.ylabel(goal_data['indicator'])
+        plt.xlabel('Gross Domestic Product')
+        green_yellow = goal_data['green-yellow']
+        yellow_red = goal_data['yellow-red']
+        
+        minimum_values = []
+        maximum_values = []
+        min_gdp = []
+        max_gdp = []
+
+        #plot here
+        
+        color = self.world.world_regions[region_code]['color']
+        name = self.world.world_regions[region_code]['region']
+        instance = self.world.world_regions[region_code]['instance']
+        r_sdg = instance.sdg.loc[int(goal)][self.inputs.historical_years]
+        r_gdp = instance.gdp.loc[0][self.inputs.historical_years]
+
+        plt.title(goal_data['goal']+' correlation with Gross Domestic Product for '+name)
+
+        plt.plot(r_gdp,r_sdg,color,linestyle='dotted',marker='o',label=f'{name}')
+        #end plot
+
+        for region in self.world.world_regions.values():
+            regional_sdg = region['instance'].sdg.loc[int(goal)]
+            regional_gdp = region['instance'].gdp.loc[0]
+            max_gdp.append(max(regional_gdp[self.inputs.historical_years]))
+            min_gdp.append(min(regional_gdp[self.inputs.historical_years]))
+            minimum_values.append(min(regional_sdg[self.inputs.historical_years]))
+            maximum_values.append(max(regional_sdg[self.inputs.historical_years]))
+        if goal_data['direction of progress'] == '<':
+            best = min(minimum_values) 
+            worst = max(maximum_values) 
+        else:
+            best = max(maximum_values) 
+            worst = min(minimum_values)
+        plt.fill_between(np.linspace(min(min_gdp),max(max_gdp),100),green_yellow,yellow_red, color = 'yellow', alpha = 0.09,label='Warning Zone')
+        plt.fill_between(np.linspace(min(min_gdp),max(max_gdp),100),worst,yellow_red, color = 'red', alpha = 0.09,label='Danger Zone')
+        plt.fill_between(np.linspace(min(min_gdp),max(max_gdp),100),green_yellow,best, color = 'green', alpha = 0.09,label='Safe Zone')
+        plt.legend()
+        plt.show()
 
 
     #   CORRELATE
     def correlate(self):
-        print('.. beep boop correlating...')
-    #   ADJUST
+        print('.. beep boop correlating ..')
+    #   PREDICT
+    def predict(self):
+        print('.. beep boop making predictions ..')
     #   PERFORMANCE
+    def performance(self):
+        print('.. beep boop grading performance ..')
+    # RUN MODEL !
+    def run(self):
+        #call sgd ~ gdp correlation process
+        self.correlate()
+        self.predict()
+        self.performance()
