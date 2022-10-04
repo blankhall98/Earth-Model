@@ -1,3 +1,5 @@
+import numpy as np
+
 class Inputs:
 
     def __init__(self):
@@ -94,7 +96,8 @@ class Inputs:
                     'units': '%',
                     'green-yellow': 2,
                     'yellow-red': 13,
-                    'direction of progress': '<'
+                    'direction of progress': '<',
+                    'fit': lambda x,a,b : a*np.exp(-x/b)
                 },
                 
                 '2': {
@@ -103,7 +106,8 @@ class Inputs:
                     'units': '%',
                     'green-yellow': 7,
                     'yellow-red': 15,
-                    'direction of progress': '<'
+                    'direction of progress': '<',
+                    'fit': lambda x,a,b : a*np.exp(-x/b)
                 },
                 
                 '3': {
@@ -112,7 +116,8 @@ class Inputs:
                     'units': 'years',
                     'green-yellow': 75,
                     'yellow-red': 70,
-                    'direction of progress': '>'
+                    'direction of progress': '>',
+                    'fit': lambda x,a,b : a*np.exp(x/b)
                 },
                 
                 '4': {
@@ -121,7 +126,8 @@ class Inputs:
                     'units': 'years',
                     'green-yellow': 12,
                     'yellow-red': 10,
-                    'direction of progress': '>'
+                    'direction of progress': '>',
+                    'fit': lambda x,a,b : a*np.exp(x/b)
                 },
                 
                 '5': {
@@ -130,7 +136,8 @@ class Inputs:
                     'units': '1',
                     'green-yellow': 0.95,
                     'yellow-red': 0.8,
-                    'direction of progress': '>'
+                    'direction of progress': '>',
+                    'fit': lambda x,a,b : a*np.exp(x/b)
                 },
                 
                 '6': {
@@ -139,7 +146,8 @@ class Inputs:
                     'units': '%',
                     'green-yellow': 98,
                     'yellow-red': 80,
-                    'direction of progress': '>'
+                    'direction of progress': '>',
+                    'fit': lambda x,a,b : a*np.exp(x/b)
                 },
                 
                 '7': {
@@ -148,7 +156,8 @@ class Inputs:
                     'units': '%',
                     'green-yellow': 98,
                     'yellow-red': 80,
-                    'direction of progress': '>'
+                    'direction of progress': '>',
+                    'fit': lambda x,a,b : a*np.exp(x/b)
                 },
                 
                 '8': {
@@ -248,49 +257,56 @@ class Inputs:
                 'region': 'United States',
                 'abreviation': 'USA',
                 'members': [],
-                'color': 'blue'
+                'color': 'blue',
+                'fit': {}
             },
             
             'ORC': {
                 'region': 'Other Rich Countries',
                 'abreviation': 'ORC',
                 'members': [],
-                'color': 'green'
+                'color': 'green',
+                'fit': {}
             },
             
             'EE': {
                 'region': 'Emerging Economies',
                 'abreviation': 'EE',
                 'members': [],
-                'color': 'magenta'
+                'color': 'magenta',
+                'fit': {}
             },
             
             'China': {
                 'region': 'China',
                 'abreviation': 'China',
                 'members': [],
-                'color': 'red'
+                'color': 'red',
+                'fit': {}
             },
             
             'India': {
                 'region': 'Indian Subcontinent',
                 'abreviation': 'India',
                 'members': [],
-                'color': 'orange'
+                'color': 'orange',
+                'fit': {}
             },
             
             'ASoS': {
                 'region': 'Africa South of Sahara',
                 'abreviation': 'ASoS',
                 'members': [],
-                'color': 'brown'
+                'color': 'brown',
+                'fit': {}
             },
             
             'RoW': {
                 'region': 'Rest of World',
                 'abreviation': 'RoW',
                 'members': [],
-                'color': 'purple'
+                'color': 'purple',
+                'fit': {}
             }
             
         }

@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from scipy.optimize import curve_fit
 
 class E3:
 
@@ -241,16 +242,6 @@ class E3:
         min_gdp = []
         max_gdp = []
 
-        #plot here
-        for region in self.world.world_regions.values():
-            color = region['color']
-            name = region['region']
-            r_sdg = region['instance'].sdg.loc[int(goal)][self.inputs.historical_years]
-            r_gdp = region['instance'].gdp.loc[0][self.inputs.historical_years]
-
-            plt.plot(r_gdp,r_sdg,color,linestyle='dotted',marker='o',label=f'{name}')
-        #end plot here
-
         for region in self.world.world_regions.values():
             regional_sdg = region['instance'].sdg.loc[int(goal)]
             regional_gdp = region['instance'].gdp.loc[0]
@@ -267,6 +258,29 @@ class E3:
         plt.fill_between(np.linspace(min(min_gdp),max(max_gdp),100),green_yellow,yellow_red, color = 'yellow', alpha = 0.09,label='Warning Zone')
         plt.fill_between(np.linspace(min(min_gdp),max(max_gdp),100),worst,yellow_red, color = 'red', alpha = 0.09,label='Danger Zone')
         plt.fill_between(np.linspace(min(min_gdp),max(max_gdp),100),green_yellow,best, color = 'green', alpha = 0.09,label='Safe Zone')
+
+        plt.ylim(min(minimum_values),max(maximum_values))
+        plt.xlim(min(min_gdp),max(max_gdp))
+
+        #plot here
+        if not corr:
+            for region in self.world.world_regions.values():
+                color = region['color']
+                name = region['region']
+                r_sdg = region['instance'].sdg.loc[int(goal)][self.inputs.historical_years]
+                r_gdp = region['instance'].gdp.loc[0][self.inputs.historical_years]
+                plt.plot(r_gdp,r_sdg,color,linestyle='dotted',marker='o',label=f'{name}')
+        elif corr:
+            for region in self.world.world_regions.values():
+                color = region['color']
+                name = region['region']
+                r_sdg = region['instance'].sdg.loc[int(goal)][self.inputs.historical_years]
+                r_gdp = region['instance'].gdp.loc[0][self.inputs.historical_years]
+                r_fit = region['instance'].regional_statistics['fit'][goal]
+                goal_fit = self.sdg.sustainable_goals[goal]['fit']
+                plt.plot(np.linspace(min(min_gdp),max(max_gdp),100),goal_fit(np.linspace(min(min_gdp),max(max_gdp),100),*r_fit['popt']),'--',label=f'{name}')
+        #end plot here
+
         plt.legend()
         plt.show()
 
@@ -285,19 +299,6 @@ class E3:
         min_gdp = []
         max_gdp = []
 
-        #plot here
-        
-        color = self.world.world_regions[region_code]['color']
-        name = self.world.world_regions[region_code]['region']
-        instance = self.world.world_regions[region_code]['instance']
-        r_sdg = instance.sdg.loc[int(goal)][self.inputs.historical_years]
-        r_gdp = instance.gdp.loc[0][self.inputs.historical_years]
-
-        plt.title(goal_data['goal']+' correlation with Gross Domestic Product for '+name)
-
-        plt.plot(r_gdp,r_sdg,color,linestyle='dotted',marker='o',label=f'{name}')
-        #end plot
-
         for region in self.world.world_regions.values():
             regional_sdg = region['instance'].sdg.loc[int(goal)]
             regional_gdp = region['instance'].gdp.loc[0]
@@ -314,16 +315,62 @@ class E3:
         plt.fill_between(np.linspace(min(min_gdp),max(max_gdp),100),green_yellow,yellow_red, color = 'yellow', alpha = 0.09,label='Warning Zone')
         plt.fill_between(np.linspace(min(min_gdp),max(max_gdp),100),worst,yellow_red, color = 'red', alpha = 0.09,label='Danger Zone')
         plt.fill_between(np.linspace(min(min_gdp),max(max_gdp),100),green_yellow,best, color = 'green', alpha = 0.09,label='Safe Zone')
+
+        plt.ylim(min(minimum_values),max(maximum_values))
+        plt.xlim(min(min_gdp),max(max_gdp))
+        #plot here
+        
+        color = self.world.world_regions[region_code]['color']
+        name = self.world.world_regions[region_code]['region']
+        instance = self.world.world_regions[region_code]['instance']
+        r_sdg = instance.sdg.loc[int(goal)][self.inputs.historical_years]
+        r_gdp = instance.gdp.loc[0][self.inputs.historical_years]
+
+        plt.title(goal_data['goal']+' correlation with Gross Domestic Product for '+name)
+
+        if corr:
+            r_fit = instance.regional_statistics['fit'][goal]
+            goal_fit = self.sdg.sustainable_goals[goal]['fit']
+            plt.plot(np.linspace(min(min_gdp),max(max_gdp),100),goal_fit(np.linspace(min(min_gdp),max(max_gdp),100),*r_fit['popt']),'--',label='curve fit')
+
+        plt.plot(r_gdp,r_sdg,color,linestyle='dotted',marker='o',label=f'{name}')
+        #end plot
+
+        
         plt.legend()
         plt.show()
 
-
     #   CORRELATE
     def correlate(self):
-        print('.. beep boop correlating ..')
+        goals2correlate = ['1','2','3','4','5','6','7']
+        for goal in goals2correlate:
+            self.fit_goal(goal)
+
+    #correlate goal by goal - since not all goals can be correlated initially - feeds correlate function
+    def fit_goal(self,goal):
+        for region in self.world.world_regions.values():
+            historical_sdg = region['instance'].sdg.loc[int(goal)][self.inputs.historical_years].values
+            historical_gdp = region['instance'].gdp[self.inputs.historical_years].values[0]
+            
+            popt, pcov = curve_fit(self.sdg.sustainable_goals[goal]['fit'],historical_gdp,historical_sdg)
+            region['instance'].regional_statistics['fit'][goal] = {'popt': popt,'pcov':pcov}
+
     #   PREDICT
     def predict(self):
-        print('.. beep boop making predictions ..')
+        goals2predict = ['1','2','3','4','5','6','7']
+        for goal in goals2predict:
+            self.predict_goal(goal)
+
+    #predict goal by goal - since not all goals can be correlated initially - feeds predict function
+    def predict_goal(self,goal):
+        for region in self.world.world_regions.values():
+            regional_gdp = region['instance'].gdp[self.inputs.prediction_years].values[0]
+            fit_parameters = region['instance'].regional_statistics['fit'][goal]
+            predict_function = self.sdg.sustainable_goals[goal]['fit']
+            goal_prediction = predict_function(regional_gdp,*fit_parameters['popt'])
+            region['instance'].sdg.loc[int(goal)][self.inputs.prediction_years] = goal_prediction
+            print(region['instance'].sdg.loc[int(goal)])
+    
     #   PERFORMANCE
     def performance(self):
         print('.. beep boop grading performance ..')
