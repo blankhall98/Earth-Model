@@ -258,7 +258,8 @@ class Inputs:
                 'abreviation': 'USA',
                 'members': [],
                 'color': 'blue',
-                'fit': {}
+                'fit': {},
+                'performance': {}
             },
             
             'ORC': {
@@ -266,7 +267,8 @@ class Inputs:
                 'abreviation': 'ORC',
                 'members': [],
                 'color': 'green',
-                'fit': {}
+                'fit': {},
+                'performance': {}
             },
             
             'EE': {
@@ -274,7 +276,8 @@ class Inputs:
                 'abreviation': 'EE',
                 'members': [],
                 'color': 'magenta',
-                'fit': {}
+                'fit': {},
+                'performance': {}
             },
             
             'China': {
@@ -282,7 +285,8 @@ class Inputs:
                 'abreviation': 'China',
                 'members': [],
                 'color': 'red',
-                'fit': {}
+                'fit': {},
+                'performance': {}
             },
             
             'India': {
@@ -290,7 +294,8 @@ class Inputs:
                 'abreviation': 'India',
                 'members': [],
                 'color': 'orange',
-                'fit': {}
+                'fit': {},
+                'performance': {}
             },
             
             'ASoS': {
@@ -298,7 +303,8 @@ class Inputs:
                 'abreviation': 'ASoS',
                 'members': [],
                 'color': 'brown',
-                'fit': {}
+                'fit': {},
+                'performance': {}
             },
             
             'RoW': {
@@ -306,7 +312,8 @@ class Inputs:
                 'abreviation': 'RoW',
                 'members': [],
                 'color': 'purple',
-                'fit': {}
+                'fit': {},
+                'performance': {}
             }
             
         }

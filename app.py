@@ -40,7 +40,7 @@ def main():
     e3.graph_regional_sdgXgdp('ASoS','1')
     e3.graph_regional_sdgXgdp('ASoS','1',corr = True)
     '''
-    
+
     #fit goals
     '''
     e3.correlate()
@@ -53,14 +53,13 @@ def main():
     e3.graph_regional_sdg('ASoS','7')
     '''
 
-    #predict goals
+    #predict future goals values
     '''
     e3.predict()
     '''
-    e3.predict_goal('1')
 
-
-    
+    # REGIONAL PERFORMANCE
+    e3.grade_goal('1')
 
 
 #run app

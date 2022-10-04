@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.optimize import curve_fit
+import pandas as pd
 
 class E3:
 
@@ -361,20 +362,57 @@ class E3:
         for goal in goals2predict:
             self.predict_goal(goal)
 
-    #predict goal by goal - since not all goals can be correlated initially - feeds predict function
+    #predict goal by goal - since not all goals can be predicted initially - feeds predict function
     def predict_goal(self,goal):
         for region in self.world.world_regions.values():
             regional_gdp = region['instance'].gdp[self.inputs.prediction_years].values[0]
             fit_parameters = region['instance'].regional_statistics['fit'][goal]
             predict_function = self.sdg.sustainable_goals[goal]['fit']
             goal_prediction = predict_function(regional_gdp,*fit_parameters['popt'])
+            #save goal predictions in region instance
             region['instance'].sdg.loc[int(goal)][self.inputs.prediction_years] = goal_prediction
-            print(region['instance'].sdg.loc[int(goal)])
     
     #   PERFORMANCE
     def performance(self):
         print('.. beep boop grading performance ..')
-    # RUN MODEL !
+
+    #grade goal performance goal by goal - since not all goals can be graded initially - feeds performance function
+    def grade_goal(self,goal):
+        for region in self.world.world_regions.values():
+            sdg_values = region['instance'].sdg.loc[int(goal)]
+
+            #grading process
+            yellow_red = self.sdg.sustainable_goals[goal]['yellow-red']
+            green_yellow = self.sdg.sustainable_goals[goal]['green-yellow']
+            risk_direction = self.sdg.sustainable_goals[goal]['direction of progress']
+
+            regional_performance = []
+
+            if risk_direction == '<':
+                for val in sdg_values.values:
+                    if val < green_yellow:
+                        grade = 1
+                    elif val >= green_yellow and val < yellow_red:
+                        grade = 0.5
+                    elif val >= yellow_red:
+                        grade = 0
+                    regional_performance.append(grade)
+            elif risk_direction == '>':
+                for val in sdg_values.values:
+                    if val > green_yellow:
+                        grade = 1
+                    elif val <= green_yellow and val > yellow_red:
+                        grade = 0.5
+                    elif val <= yellow_red:
+                        grade = 0
+                    regional_performance.append(grade)
+
+            #save dataframe in region instance
+            region['instance'].regional_statistics['performance'][goal] = regional_performance
+
+            print(region['instance'].regional_statistics['performance'][goal])
+
+    # RUN MODEL ! - This function runs correlate+predict+performance combo - set tu run in automatic at initialization
     def run(self):
         #call sgd ~ gdp correlation process
         self.correlate()
